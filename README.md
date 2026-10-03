@@ -3,6 +3,8 @@
 
 Built for the **DEV Community Hacktoberfest Weekend Challenge: Build for a Friend / Family Member** (October 2026).
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/nashdev97/dawaaidost)
+
 ---
 
 ## 🌟 The Inspiration / Problem Statement

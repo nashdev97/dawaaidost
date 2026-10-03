@@ -1,5 +1,5 @@
 ---
-title: "DawaaiDost: making confusing medicine instructions easier for my grandparents"
+title: "DawaaiDost: helping my grandparents make sense of medicine instructions"
 published: false
 tags: devchallenge, weekendchallenge, hf26challenge, opensource
 canonical_url: false
@@ -9,11 +9,11 @@ canonical_url: false
 
 ## What I Built
 
-My grandparents sometimes need help making sense of medicine instructions: what a prescription abbreviation means, when a dose is meant to be taken, and how to read small print on a medicine strip.
+I started DawaaiDost (दवाई दोस्त) for my grandparents. The idea came from a familiar family problem: a prescription uses shorthand like `OD`, `BD`, or `AC`, and someone has to help work out what the instructions say and when a medicine is meant to be taken.
 
-I started **DawaaiDost (दवाई दोस्त)** as a family-focused prototype. It accepts pasted prescription text or a Hinglish note, selects a family profile, and displays a structured medicine card with a Hindi instruction that can be read aloud. There are also simple memory controls for adding a rule and asking common questions.
+DawaaiDost is a small web prototype. You can choose a family profile, paste prescription text or a Hinglish note, and get a structured medicine card with a Hindi instruction that can be read aloud. The page also has controls to add a memory rule and ask a few common questions.
 
-The goal is to make medication instructions easier for an older family member to review with someone they trust. DawaaiDost is a prototype, not a medical device or a substitute for a clinician or pharmacist. The output must be checked against the prescription and confirmed with a healthcare professional.
+The aim is to make an instruction easier to review together. This prototype is not a medical device, does not verify prescriptions, and should not be used to decide a dose. Always follow the prescriber's instructions and ask a doctor or pharmacist when anything is unclear.
 
 ## Demo
 
@@ -21,24 +21,30 @@ Try the live app: [https://dawaaidost.onrender.com](https://dawaaidost.onrender.
 
 ## Code
 
-Source: [github.com/nashdev97/dawaaidost](https://github.com/nashdev97/dawaaidost)
+Source code: [github.com/nashdev97/dawaaidost](https://github.com/nashdev97/dawaaidost)
 
 ## How I Built It
 
-The app uses FastAPI for its endpoints and serves a small browser UI. The UI sends prescription text to the backend and renders the returned fields as a medicine card.
+The app is a FastAPI service with a browser interface. The interface sends text to the backend and shows the response as a medicine card.
 
-The repository includes a Tinker integration scaffold for Qwen, a local parsing fallback, a JSON-backed memory module, and an ElevenLabs client. The current parsing path in the checked-in app uses deterministic local heuristics; it does not call a fine-tuned model for inference. The memory module currently saves JSON locally rather than calling Backboard, and the browser speaks the Hindi text with its built-in Web Speech API. Those distinctions matter: the live demo should be understood as an early prototype, not as a deployed fine-tuned medical model or a production memory service.
+Here is the important implementation detail: the current deployed parsing path uses deterministic local heuristics. The repository has a Tinker/Qwen integration scaffold, but it does not currently run a fine-tuned open-weight model for inference. The memory feature stores rules in a local JSON file; it is not connected to Backboard. The browser uses its built-in Web Speech API to read instructions; the deployed flow does not use ElevenLabs.
+
+I have not run a reliable model benchmark for this prototype, so I am not claiming an accuracy score. That is a meaningful gap for a medication-related tool, where confident but incorrect instructions could cause harm.
 
 ## Why Does Open Innovation Matter?
 
-An open-weight model could make this kind of tool easier to inspect, adapt for local language and prescription conventions, and run closer to a family's own device. The code is open so others can examine the approach and help improve it.
+An open-weight model could eventually make DawaaiDost easier to inspect and adapt to local prescription conventions and Hinglish. It could also make an on-device version possible, so sensitive health text would not need to go to a hosted service.
 
-The current build does not yet deliver those model and privacy benefits: its parsing is heuristic-based, and the hosted app processes requests on a server. My next step is to connect and evaluate an actual open-weight model, then make the data flow and privacy choices clear before anyone relies on it.
+Those are the reasons I want to explore open models for this project. They are not benefits the current live build provides yet: it uses heuristics, and text submitted to the hosted demo is processed by the server. Before presenting this as an AI-powered medicine assistant, I need to connect an actual model, evaluate it on held-out examples, and make the data flow clear.
+
+## What I Learned
+
+A useful interface can make a prototype feel more capable than its underlying system is. Writing this up made me check what the app actually runs: the model and partner integrations in the code are scaffolding, while the live parsing is heuristic-based. In a health-related use case, being clear about that boundary is part of building responsibly.
 
 ## My Agent Session
 
-Optional: add a DevRelay agent-session embed or link here if one is available.
+Optional: add a DevRelay agent-session embed or link here if you have one to share.
 
 ## Prize Categories
 
-The app is deployed on Render, so I am entering **Best Use of Render**. I am not claiming the Tinker, Backboard, or ElevenLabs categories for the current build: their production integrations are not active in the deployed parsing and narration flow.
+The app is hosted on Render, so I am entering **Best Use of Render**. I am not entering the Tinker, Backboard, or ElevenLabs categories because those integrations are not active in the deployed user flow.

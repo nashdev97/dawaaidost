@@ -3,10 +3,6 @@
 
 Built for the **DEV Community Hacktoberfest Weekend Challenge: Build for a Friend / Family Member** (October 2026).
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/nashdev97/dawaaidost)
-
----
-
 ## 🌟 The Inspiration / Problem Statement
 Every week, my 74-year-old grandmother holds up a prescription slip or a medicine blister pack and asks me:
 > *"Beta, yeh Dolo khane ke baad leni thi ya khali pet? Aur yeh BP wali subah ki hai ya raat ki?"*
